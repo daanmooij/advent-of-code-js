@@ -1,12 +1,13 @@
 {
-  "name": "advent-of-code",
-  "type": "module",
+  "name": "advent-of-code-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "My JavaScript solutions to the advent of code challenges",
   "author": "Daan Mooij",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "prettier": "npx prettier --write ./src"
+  },
+  "devDependencies": {
+    "prettier": "3.1.0"
+  }
 }
