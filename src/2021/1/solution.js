@@ -2,18 +2,24 @@ const fs = require('fs')
 const path = require('path')
 
 const filePath = path.join(__dirname, './input.txt')
-const input = fs.readFileSync(filePath, 'utf-8')
+const lines = fs.readFileSync(filePath, 'utf-8').trim().split('\n')
+const measurements = lines.map((line) => Number(line))
 
-const measurements = input.split('\n').map((n) => +n)
+const sumOfIncreases = (accumulator, currentValue, currentIndex, array) =>
+  currentIndex > 0
+    ? currentValue > array[currentIndex - 1]
+      ? accumulator + 1
+      : accumulator
+    : accumulator
 
-const mapper = (element, index, array) =>
-  element + array[index + 1] + array[index + 2]
-const flatMapper = (n) => (n === undefined ? [] : n)
-const reducer = (previous, current, index, array) =>
-  previous + (index > 0 && current > array[index - 1])
+const sum = measurements.reduce(sumOfIncreases, 0)
+console.log(`Part 1: ${sum}`)
 
-let increases = measurements.reduce(reducer, 0)
-console.log('Answer part 1: ' + increases)
+const sumOfSums = measurements
+  .map(
+    (currentValue, index, array) =>
+      currentValue + array[index + 1] + array[index + 2],
+  )
+  .reduce(sumOfIncreases, 0)
 
-increases = measurements.map(mapper).flatMap(flatMapper).reduce(reducer, 0)
-console.log('Answer part 2: ' + increases)
+console.log(`Part 2: ${sumOfSums}`)
